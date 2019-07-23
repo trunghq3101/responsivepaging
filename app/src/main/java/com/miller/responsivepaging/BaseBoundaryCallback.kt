@@ -12,10 +12,10 @@ import java.util.concurrent.Executor
  * Created by Hoang Trung on 15/07/2019
  */
 class BaseBoundaryCallback<Item: BaseLoadMoreEntity, Key, ResponseType: BaseLoadMoreResponse<Item>>(
-        private val repository: ILoadMoreWithDbRepository<Item, Key, ResponseType>,
-        private val ioExecutor: Executor,
-        private val networkPageSize: Int?,
-        private val handleResponse: (response: BaseLoadMoreResponse<Item>) -> Unit
+    private val repository: ILoadMoreWithDbRepository<Item, Key, ResponseType>,
+    private val ioExecutor: Executor,
+    private val networkPageSize: Int?,
+    private val handleResponse: (response: BaseLoadMoreResponse<Item>) -> Unit
 ) : PagedList.BoundaryCallback<Item>(), PagingRequestHelper.Request {
     private val helper = PagingRequestHelper(ioExecutor)
     val networkState = helper.createStatusLiveData()

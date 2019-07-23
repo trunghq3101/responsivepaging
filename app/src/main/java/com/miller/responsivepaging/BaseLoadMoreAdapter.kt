@@ -11,7 +11,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.miller.loadmoredbnetwork.R
 
 /**
  * Created by Hoang Trung on 18/07/2019
@@ -44,27 +43,27 @@ abstract class BaseLoadMoreAdapter<T: BaseLoadMoreEntity>(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_PROGRESS -> NetworkStateItemViewHolder(
-                    inflater.inflate(
-                            R.layout.item_loadmore_network_state,
-                            parent,
-                            false
-                    )
+                inflater.inflate(
+                    R.layout.item_loadmore_network_state,
+                    parent,
+                    false
+                )
             )
             TYPE_ITEM -> ItemViewHolder(
-                    DataBindingUtil.inflate(
-                            inflater,
-                            getItemLayoutRes(),
-                            parent,
-                            false
-                    )
+                DataBindingUtil.inflate(
+                    inflater,
+                    getItemLayoutRes(),
+                    parent,
+                    false
+                )
             )
             else -> ItemViewHolder(
-                    DataBindingUtil.inflate(
-                            inflater,
-                            getItemLayoutRes(),
-                            parent,
-                            false
-                    )
+                DataBindingUtil.inflate(
+                    inflater,
+                    getItemLayoutRes(),
+                    parent,
+                    false
+                )
             )
         }
     }

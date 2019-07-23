@@ -106,9 +106,9 @@ class PagingRequestHelper
     @GuardedBy("mLock")
     private val mRequestQueues =
         arrayOf(RequestQueue(RequestType.INITIAL), RequestQueue(
-                RequestType.BEFORE
+            RequestType.BEFORE
         ), RequestQueue(
-                RequestType.AFTER
+            RequestType.AFTER
         ))
     internal val mListeners: CopyOnWriteArrayList<Listener> = CopyOnWriteArrayList()
 
@@ -155,7 +155,7 @@ class PagingRequestHelper
             }
             queue.mRunning = request
             queue.mStatus =
-                    Status.RUNNING
+                Status.RUNNING
             queue.mFailed = null
             queue.mLastError = null
             if (hasListeners) {
@@ -164,9 +164,9 @@ class PagingRequestHelper
         }
         report?.let { dispatchReport(it) }
         val wrapper = RequestWrapper(
-                request,
-                this,
-                type
+            request,
+            this,
+            type
         )
         wrapper.run()
         return true
@@ -177,10 +177,10 @@ class PagingRequestHelper
         val errors =
             arrayOf(mRequestQueues[0].mLastError, mRequestQueues[1].mLastError, mRequestQueues[2].mLastError)
         return StatusReport(
-                getStatusForLocked(RequestType.INITIAL),
-                getStatusForLocked(RequestType.BEFORE),
-                getStatusForLocked(RequestType.AFTER),
-                errors
+            getStatusForLocked(RequestType.INITIAL),
+            getStatusForLocked(RequestType.BEFORE),
+            getStatusForLocked(RequestType.AFTER),
+            errors
         )
     }
 
@@ -202,11 +202,11 @@ class PagingRequestHelper
             if (success) {
                 queue.mFailed = null
                 queue.mStatus =
-                        Status.SUCCESS
+                    Status.SUCCESS
             } else {
                 queue.mFailed = wrapper
                 queue.mStatus =
-                        Status.FAILED
+                    Status.FAILED
             }
             if (hasListeners) {
                 report = prepareStatusReportLocked()
@@ -246,18 +246,18 @@ class PagingRequestHelper
     }
 
     internal class RequestWrapper(
-            @param:NonNull @field:NonNull
+        @param:NonNull @field:NonNull
         val mRequest: Request, @param:NonNull @field:NonNull
         val mHelper: PagingRequestHelper,
-            @param:NonNull @field:NonNull
+        @param:NonNull @field:NonNull
         val mType: RequestType
     ) : Runnable {
         override fun run() {
             mRequest.run(
-                    Request.Callback(
-                            this,
-                            mHelper
-                    )
+                Request.Callback(
+                    this,
+                    mHelper
+                )
             )
         }
 
@@ -289,8 +289,8 @@ class PagingRequestHelper
          * Callback class provided to the [.run] method to report the result.
          */
         class Callback internal constructor(
-                private val mWrapper: RequestWrapper,
-                private val mHelper: PagingRequestHelper
+            private val mWrapper: RequestWrapper,
+            private val mHelper: PagingRequestHelper
         ) {
             private val mCalled = AtomicBoolean()
             /**
@@ -333,19 +333,19 @@ class PagingRequestHelper
      * using this helper.
      */
     class StatusReport internal constructor(
-            /**
+        /**
          * Status of the latest request that were submitted with [RequestType.INITIAL].
          */
         val initial: Status,
-            /**
+        /**
          * Status of the latest request that were submitted with [RequestType.BEFORE].
          */
         val before: Status,
-            /**
+        /**
          * Status of the latest request that were submitted with [RequestType.AFTER].
          */
         val after: Status,
-            private val mErrors: Array<Throwable?>
+        private val mErrors: Array<Throwable?>
     ) {
         /**
          * Convenience method to check if there are any running requests.
